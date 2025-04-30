@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cursed Mirror</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 5vw;
+      margin-bottom: 5px;
+    }
+
+    #countdown {
+      font-size: 10vw;
+      color: red;
+      margin: 10px 0;
+    }
+
+    .creepy-text {
+      font-family: 'Nosifer', cursive;
+      font-size: 9vw;
+      color: red;
+      animation: flicker 0.2s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    #flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      color: gray;
+      font-size: 5vw;
+      font-family: 'Nosifer', cursive;
+    }
+
+    #ghost {
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 60%;
+      height: 60%;
+      background-image: url('https://example.com/ghost-image.png'); /* Replace with a ghost image URL */
+      background-size: cover;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+    }
+
+    video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="creepyAudio" preload="auto">
+    <source src="https://www.soundjay.com/horror/sounds/horror-ambience-2.mp3" type="audio/mp3">
+  </audio>
+
+  <h1>The Cursed Mirror</h1>
+  <video id="videoElement" autoplay muted></video>
+  <div id="ghost"></div>
+  <footer>Made by Hasnain Abbasi</footer>
+
+  <script>
+    const creepyAudio = document.getElementById("creepyAudio");
+    const ghost = document.getElementById("ghost");
+    const videoElement = document.getElementById("videoElement");
+
+    // Get the webcam stream
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        videoElement.srcObject = stream;
+      })
+      .catch((err) => {
+        console.log("Error: " + err);
+      });
+
+    setTimeout(() => {
+      creepyAudio.play().catch(e => console.log("Audio play blocked:", e));
+      ghost.style.opacity = 1; // Ghost image fades in
+    }, 15000);  // Delay the ghost and sound for 15 seconds
+
+  </script>
+
+</body>
+</html>
